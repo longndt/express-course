@@ -17,7 +17,7 @@ router.post('/register', async (req, res) => {
       var user = {
          username: userRegistration.username,
          password: hashPassword,
-         role: 'customer'
+         role: 'user'
       }
       await UserModel.create(user);
       res.redirect('/auth/login')
@@ -40,7 +40,13 @@ router.post('/login', async (req, res) => {
             //initialize session after login success
             req.session.username = user.username;
             req.session.role = user.role;
-            res.redirect('/');
+            if (user.role == 'admin') {
+               //redirect to admin page
+            }
+            else {
+               //redirect to user page
+            }
+
          }
          else {
             res.redirect('/auth/login');
