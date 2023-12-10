@@ -24,7 +24,7 @@
 
 - MongoDB Compass: Database management
 ## 3. Syllabus:
-### Lesson 1: (3 slots)
+### Lesson 1: 
 -	Create database, collection and insert document with MongoDB Compass
 
 -	Initialize ExpressJS web app with Handlebars (HBS) view engine
@@ -36,7 +36,7 @@
 -	Setup relationship between collections (One to Many)
 
 -	Implement CRUD features
-### Lesson 2: (3 slots)
+### Lesson 2: 
 -	Customize web layout/template
 
 -	Decorate web UI with Materialize CSS framework
@@ -51,7 +51,7 @@
 
 -	Password encryption 
 
-### Lesson 3: (2 slots)
+### Lesson 3: 
 -  Authorization  (role-based access)
 
 -  Install new packages: multer, axios
@@ -59,7 +59,7 @@
 -  Image upload
 
 -  Fetch API
-### Lesson 4: (2 slots)
+### Lesson 4:
 -  Install new packages: cors, jsonwebtoken
 
 -  Enable CORS to exchange API with frontend  
