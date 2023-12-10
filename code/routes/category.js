@@ -51,7 +51,7 @@ router.post('/edit/:id', async (req, res) => {
 
 router.get('/detail/:id', async (req, res) => {
    var id = req.params.id;
-   var productList = await ProductModel.find({ category: id });
+   var productList = await ProductModel.find({ category: id }).populate('category');
    res.render('product/index', { productList })
 })
 module.exports = router;
