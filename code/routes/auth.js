@@ -16,7 +16,8 @@ router.post('/register', async (req, res) => {
       var hashPassword = bcrypt.hashSync(userRegistration.password, salt);
       var user = {
          username: userRegistration.username,
-         password: hashPassword
+         password: hashPassword,
+         role: 'customer'
       }
       await UserModel.create(user);
       res.redirect('/auth/login')
@@ -38,6 +39,7 @@ router.post('/login', async (req, res) => {
          if (hash) {
             //initialize session after login success
             req.session.username = user.username;
+            req.session.role = user.role;
             res.redirect('/');
          }
          else {
