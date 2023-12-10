@@ -1,0 +1,26 @@
+<h1>Category List</h1>
+<div class="row">
+   <a class="btn" href="/category/add">Add category</a>
+</div>
+<table>
+   <tr>
+      <th>Category name</th>
+      <th>Category description</th>
+      <th>Menu</th>
+   </tr>
+   {{#each categoryList }}
+   <tr>
+      <td>
+         <a href="/category/detail/{{_id}}">
+            {{ name }}
+         </a>
+      </td>
+      <td>{{ description }}</td>
+      <td>
+         <a class="btn orange" href="/category/edit/{{_id}}">Edit</a>
+         <a class="btn brown" href="/category/delete/{{_id}}"
+            onclick="return confirm('Do you want to delete this category ?')" ;>Delete</a>
+      </td>
+   </tr>
+   {{/each}}
+</table>
