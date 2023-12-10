@@ -4,6 +4,25 @@ var ProductModel = require('../models/ProductModel');
 var CategoryModel = require('../models/CategoryModel');
 const { checkSingleSession, checkMultipleSession } = require('../middlewares/auth');
 
+//import and config "multer" package
+var multer = require('multer');
+
+var prefix = Math.floor(Math.random() * 100000000) + 1;
+
+const storage = multer.diskStorage(
+   {
+      destination: (req, file, cb) => {
+         cb(null, './public/images');
+      },
+      filename: (req, file, cb) => {
+         let fileName = prefix + "_" + file.originalname;
+         cb(null, fileName);
+      }
+   }
+);
+
+const upload = multer({ storage: storage })
+
 router.get('/', checkMultipleSession(['user', 'admin']), async (req, res) => {
    var productList = await ProductModel.find({}).populate('category');
    res.render('product/index', { productList });
@@ -14,9 +33,10 @@ router.get('/add', checkSingleSession, async (req, res) => {
    res.render('product/add', { categoryList });
 })
 
-router.post('/add', async (req, res) => {
+router.post('/add', upload.single('image'), async (req, res) => {
    try {
       var product = req.body;
+      product.image = prefix + "_" + req.file.originalname;
       await ProductModel.create(product);
       res.redirect('/product');
    }
