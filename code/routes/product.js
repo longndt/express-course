@@ -2,14 +2,14 @@ var express = require('express');
 var router = express.Router();
 var ProductModel = require('../models/ProductModel');
 var CategoryModel = require('../models/CategoryModel');
-const checkSession = require('../middlewares/auth');
+const { checkSingleSession, checkMultipleSession } = require('../middlewares/auth');
 
-router.get('/', checkSession, async (req, res) => {
+router.get('/', checkMultipleSession(['user', 'admin']), async (req, res) => {
    var productList = await ProductModel.find({}).populate('category');
    res.render('product/index', { productList });
 });
 
-router.get('/add', async (req, res) => {
+router.get('/add', checkSingleSession, async (req, res) => {
    var categoryList = await CategoryModel.find({});
    res.render('product/add', { categoryList });
 })

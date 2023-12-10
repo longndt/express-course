@@ -41,12 +41,11 @@ router.post('/login', async (req, res) => {
             req.session.username = user.username;
             req.session.role = user.role;
             if (user.role == 'admin') {
-               //redirect to admin page
+               res.redirect('/admin')
             }
             else {
-               //redirect to user page
+               res.redirect('/user')
             }
-
          }
          else {
             res.redirect('/auth/login');
