@@ -12,6 +12,10 @@ var authRouter = require('./routes/auth');
 
 var app = express();
 
+//import "cors" library
+var cors = require('cors');
+app.use(cors());
+
 //import "express-session" library
 var session = require('express-session');
 //set session timeout
