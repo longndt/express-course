@@ -10,6 +10,8 @@
 - Materialize: CSS framework
 
 - MongoDB: NoSQL database
+
+- VueJS: frontend framework
 ## 2. Softwares:
 - VS Code: Code Editor
 
