@@ -9,11 +9,13 @@ var indexRouter = require('./routes/index');
 var categoryRouter = require('./routes/category');  //location: routes/category.js
 var productRouter = require('./routes/product');    //location: routes/product.js
 var authRouter = require('./routes/auth');
+var apiRouter = require('./routes/api');
 
 var app = express();
 
 //import "cors" library
 var cors = require('cors');
+//enable cors for api exchange
 app.use(cors());
 
 //import "express-session" library
@@ -67,6 +69,7 @@ app.use('/', indexRouter);
 app.use('/category', categoryRouter);
 app.use('/product', productRouter);
 app.use('/auth', authRouter);
+app.use('/api', apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
