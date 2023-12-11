@@ -1,10 +1,10 @@
-<script setup>
+<script>
 //import "axios" library to consume API from backend
 import axios from "axios";
-</script>
 
-<script>
+//declare the backend API url
 var backendAPI = "http://localhost:3000/api/product";
+
 export default {
   data() {
     return {
@@ -12,30 +12,46 @@ export default {
     };
   },
   mounted() {
-    axios
-      .get(backendAPI)
-      .then((response) => {
-        this.data = response.data;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    this.fetchProducts();
+  },
+  methods: {
+    fetchProducts() {
+      axios
+        .get(backendAPI)
+        .then((response) => {
+          this.data = response.data;
+        })
+        .catch((err) => {
+          console.log("Error loading product list: " + err);
+        });
+    },
+    deleteProduct(id) {
+      axios
+        .delete(backendAPI + "/delete/" + id)
+        .then(() => {
+          this.fetchProducts();
+        })
+        .catch((err) => {
+          console.error("Error deleting product:" + err);
+        });
+    },
   },
 };
 </script>
 
 <template>
-  <div>
+  <div class="container">
     <table>
       <thead>
         <tr>
-          <th colspan="4">Product List</th>
+          <th colspan="5"><h3>Product List</h3></th>
         </tr>
         <tr>
-          <th>Product name</th>
-          <th>Product price</th>
-          <th>Product image</th>
-          <th>Product category</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Image</th>
+          <th>Category</th>
+          <th>Menu</th>
         </tr>
       </thead>
       <tbody>
@@ -46,8 +62,18 @@ export default {
             <img :src="product.image" width="100" height="100" />
           </td>
           <td>{{ product.category.name }}</td>
+          <td>
+            <button
+              @click="deleteProduct(product._id)"
+              class="btn orange"
+              onclick="return confirm('Are you sure to delete this product ?'"
+            >
+              Delete
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
 </template>
+
