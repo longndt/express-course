@@ -1,0 +1,26 @@
+<form action="" method="post" enctype="multipart/form-data">
+  <h1>Add new product</h1>
+  Name: <input type="text" name="name" id="" required>
+  <br><br>
+  Price: <input type="number" name="price" id="" required min="0">
+
+{{#if InputErrors.price}}
+<div class="error">
+  {{InputErrors.price}}
+</div>
+{{/if}}
+
+  <br><br>
+  Image: <input type="file" name="image" id="" required>
+  <br><br>
+  Category:
+  <select name="category" id="">
+    {{#each categoryList }}
+    <option value="{{_id}}">
+      {{ name }}
+    </option>
+    {{/each}}
+  </select>
+  <br><br>
+  <input class="btn" type="submit" value="Add">
+</form>
