@@ -1,0 +1,25 @@
+<h1>Product List</h1>
+<div class="row">
+   <form class="col m5" action="/product/search" method="post">
+      <input class="form-control" type="search" name="keyword"
+      placeholder="Search by product name" required>
+   </form>
+</div>
+<table class="table table-primary">
+   <tr>
+      <th>Product name</th>
+      <th>Product price</th>
+      <th>Product image</th>
+      <th>Product category</th>
+   </tr>
+   {{#each productList }}
+   <tr>
+      <td>{{ name }}</td>
+      <td>${{ price }}</td>
+      <td>
+         <img src="/images/{{ image }}" width="100" height="100">
+      </td>
+      <td>{{ category.name }}</td>
+   </tr>
+   {{/each}}
+</table>

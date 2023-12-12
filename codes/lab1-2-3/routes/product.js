@@ -7,15 +7,16 @@ const { checkSingleSession, checkMultipleSession } = require('../middlewares/aut
 //import and config "multer" package
 var multer = require('multer');
 
-var prefix = Math.floor(Math.random() * 100000000) + 1;
+//generate an unique value for image name prefix
+var prefix = Date.now();
 
 const storage = multer.diskStorage(
    {
       destination: (req, file, cb) => {
-         cb(null, './public/images');
+         cb(null, './public/images/'); //set image upload location
       },
       filename: (req, file, cb) => {
-         let fileName = prefix + "_" + file.originalname;
+         let fileName = prefix + file.originalname; //set final image name
          cb(null, fileName);
       }
    }
@@ -25,7 +26,10 @@ const upload = multer({ storage: storage })
 
 router.get('/', checkMultipleSession(['user', 'admin']), async (req, res) => {
    var productList = await ProductModel.find({}).populate('category');
-   res.render('product/index', { productList });
+   if (req.session.role == "admin")
+      res.render('product/index', { productList });
+   else
+      res.render('product/indexUser', { productList });
 });
 
 router.get('/add', checkSingleSession, async (req, res) => {

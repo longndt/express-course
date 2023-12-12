@@ -52,12 +52,17 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//make session value available in view
-//IMPORTANT: put this before setting router url
+//make session value can be accessible in view (hbs)
+//IMPORTANT: place this code before setting router url
 app.use((req, res, next) => {
   res.locals.username = req.session.username;
   next();
 });
+
+//set user authorization for whole router
+//IMPORTANT: place this code before setting router url
+const { checkSingleSession } = require('./middlewares/auth');
+app.use('/category', checkSingleSession);
 
 app.use('/', indexRouter);
 //3B. declare web URL of routers
