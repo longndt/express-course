@@ -15,8 +15,24 @@ var app = express();
 
 //import "cors" library
 var cors = require('cors');
-//enable cors for api exchange
+
+//usage 1: enable CORS requests for all domains
 app.use(cors());
+
+//usage 2: enable CORS requests for single route
+app.get('/', cors(), (req, res) => {
+  //codes go here
+})
+
+//usage 3: enable CORS requests for single domain
+var corsOptions = {
+  origin: 'https://longndt.com',
+  optionsSuccessStatus: 200
+}
+app.use(cors(corsOptions));
+app.get('/', cors(corsOptions), (req, res) => {
+  //codes go here
+})
 
 //import "express-session" library
 var session = require('express-session');
