@@ -7,7 +7,7 @@
 
 - Handlebars (HBS): view engine
 
-- Materialize: CSS framework
+- Materialize: UI framework
 
 - MongoDB: NoSQL database
 
