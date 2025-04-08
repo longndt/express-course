@@ -26,14 +26,17 @@ export default {
         });
     },
     deleteProduct(id) {
-      axios
-        .delete(backendAPI + "/delete/" + id)
-        .then(() => {
-          this.fetchProducts();
-        })
-        .catch((err) => {
-          console.error("Error deleting product:" + err);
-        });
+      const confirmed = confirm("Are you sure to delete this product?");
+      if (confirm) {
+        axios
+          .delete(backendAPI + "/delete/" + id)
+          .then(() => {
+            this.fetchProducts();
+          })
+          .catch((err) => {
+            console.error("Error deleting product:" + err);
+          });
+      }
     },
   },
 };
@@ -50,7 +53,6 @@ export default {
           <th>Name</th>
           <th>Price</th>
           <th>Image</th>
-          <th>Category</th>
           <th>Menu</th>
         </tr>
       </thead>
@@ -61,13 +63,8 @@ export default {
           <td>
             <img :src="product.image" width="100" height="100" />
           </td>
-          <td>{{ product.category.name }}</td>
           <td>
-            <button
-              @click="deleteProduct(product._id)"
-              class="btn orange"
-              onclick="return confirm('Are you sure to delete this product ?'"
-            >
+            <button @click="deleteProduct(product._id)" class="btn orange">
               Delete
             </button>
           </td>

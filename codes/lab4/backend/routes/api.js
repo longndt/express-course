@@ -4,7 +4,7 @@ var ProductModel = require('../models/ProductModel');
 
 router.get('/product', async (req, res) => {
    try {
-      var products = await ProductModel.find({}).populate('category');
+      var products = await ProductModel.find({}).sort({ _id : -1})
       res.status(200).json(products);
    } catch (err) {
       res.status(400).send('Load product list failed !' + err);
